@@ -14,7 +14,7 @@ public class test {
     public void testSend() throws Exception {
         String sendFrom = "justinniu@yeah.net";
         String[] sendTo = {"1129114837@qq.com"};
-        String subject = "没办法啊，老师让我回去，还行吧，感觉白代课了，这样我开学就不先回去了";
+        String subject = "Test";
         StringBuilder htmlContent = new StringBuilder()
                 .append("<html>")
                 .append("<head>")
@@ -23,11 +23,12 @@ public class test {
                 .append("</title>")
                 .append("</head>")
                 .append("<body>")
-                .append("您好!陌生人<p/>")
+                .append("Hi, There<p/>")
                 .append("</body>")
                 .append("</html>");
         //StringBuilder htmlContent = new StringBuilder("hh").append("<html>").append("<p>").append("没办法").append("</p>").append("</html>");
-        EmailSender.sendHtmlMessage(sendFrom, sendTo, subject, htmlContent.toString());
+      //  EmailSender.sendHtmlMessage(sendFrom, sendTo, subject, htmlContent.toString());
+        EmailSender.sendTemplate(sendFrom, sendTo, subject, "niu");
         System.out.println("邮件发送成功.");
     }
 }
