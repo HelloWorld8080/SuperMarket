@@ -1,6 +1,7 @@
 package com.sm.web;
 
 import com.alibaba.fastjson.JSON;
+import com.sm.Component.EmailSender;
 import com.sm.entity.Commodity;
 import com.sm.entity.NameAndTime;
 import com.sm.redis.RedisCache;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisAccessor;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,12 +47,32 @@ public class CommodityController {
     @Autowired
     JedisPool jedisPool;
 
+    @Autowired
+    JavaMailSender mailSender;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String all(Model model) {
+    public String all(Model model) throws Exception {
         System.out.println(commodityService.selectAll());
         model.addAttribute("commodities", commodityService.selectAll());
-        System.out.println(jedisPool);
-        System.out.println(jedisPool.getResource().get("test"));
+//        System.out.println(jedisPool);
+////        System.out.println(jedisPool.getResource().get("test"));
+        String sendFrom = "justinniu@yeah.com";
+        String[] sendTo = {"1129114837@qq.com"};
+        String subject = "Spring自带JavaMailSender发送的HTML邮件";
+        StringBuilder htmlContent = new StringBuilder()
+                .append("<html>")
+                .append("<head>")
+                .append("<title>")
+                .append("Spring自带JavaMailSender发送的HTML邮件")
+                .append("</title>")
+                .append("</head>")
+                .append("<body>")
+                .append("您好!陌生人<p/>")
+                .append("</body>")
+                .append("</html>");
+
+        EmailSender.sendHtmlMessage(sendFrom, sendTo, subject, htmlContent.toString());
+        System.out.println("邮件发送成功.");
         return "Commodity/list";
     }
 

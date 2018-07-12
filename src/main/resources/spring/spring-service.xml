@@ -15,6 +15,7 @@
     <context:component-scan base-package="com.sm.service" />
     <context:component-scan base-package="com.sm.Impl" />
     <context:component-scan base-package="com.sm.redis" />
+    <context:component-scan base-package="com.sm.Component" />
 
     <aop:config proxy-target-class="true"/>
     <!-- 配置事务管理器 -->
