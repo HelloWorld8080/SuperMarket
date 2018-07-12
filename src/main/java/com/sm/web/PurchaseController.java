@@ -34,7 +34,7 @@ public class PurchaseController {
             return "Purchase/add";
         } else {
             purchaseService.createPurchase(purchase);
-            return "redirect:/pur/list";
+            return "redirect:add";
         }
     }
 
