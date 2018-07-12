@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FUSProjectUsageTrigger">
+    <session id="336854421">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="hh" value="1" />
+          <entry key="java" value="40" />
+          <entry key="properties" value="6" />
+          <entry key="xml" value="22" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="40" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Properties" value="6" />
+          <entry key="XML" value="22" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="287" />
+          <entry key="properties" value="29" />
+          <entry key="txt" value="6" />
+          <entry key="xml" value="227" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="287" />
+          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="Properties" value="29" />
+          <entry key="XML" value="227" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+</project>
