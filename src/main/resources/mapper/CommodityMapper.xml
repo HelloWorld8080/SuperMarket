@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.CommodityDao">
+    <cache type="com.sm.redis.RedisCache"></cache>
+    <select id="queryAll" resultType="Commodity">
+        SELECT * FROM sm_commodity
+    </select>
+    <insert id="insert" >
+        INSERT INTO sm_commodity (commodity_name, commodity_price,
+        <if test="isDiscount != '' ">
+        is_discount, discount_start_at,   discount_end_at,
+        </if>
+        commodity_bar_code) VALUES (#{commodityName}, #{commodityPrice},
+        <if test="isDiscount != '' ">
+            #{isDiscount}, #{discountStartAt}, #{discountEndAt},
+        </if>
+        #{commodityBarCode})
+    </insert>
+
+    <select id="findSingle" resultType="Commodity">
+        SELECT * FROM sm_commodity WHERE commodity_id = #{id}
+    </select>
+    <update id="update" >
+        UPDATE sm_commodity SET commodity_name = #{commodityName}, commodity_price = #{commodityPrice},
+        <if test="isDiscount != '' " >
+            is_discount = #{isDiscount},
+            discount_start_at = #{discountStartAt},
+            discount_end_at = #{discountEndAt}
+        </if>
+        commodity_bar_code = #{commodityBarCode} WHERE commodity_id = #{commodityId}
+    </update>
+
+    <select id="test" resultType="NameAndTime">
+        select a.commodity_name as commodityName, c.purchase_at as purchaseAt from sm_commodity a left join sm_purchase_child b on b.commodity_id = a.commodity_id right join sm_purchase c on b.purchase_id = c.purchase_id;
+    </select>
+    <select id="getName" resultType="String">
+        select commodity_name from sm_commodity where commodity_id = #{id}
+    </select>
+</mapper>

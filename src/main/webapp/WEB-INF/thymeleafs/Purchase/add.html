@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+</head>
+<script>
+    function requestJson(){
+        var name =$("#employeeName").val();
+        alert(name);
+        $("#input02").text("cuole");
+
+        if(name===""){
+            alert("用户名不能为空！");
+            return false;
+        }
+        else
+        {
+            $.ajax({
+                type:'post',
+                url:" /pur/valid",
+                dataType:"json",//注意使用的是打他dataType，而不是Content-Type
+                async: true,
+                data:{"name":name},
+                success:function(data){
+                    if(data === 0){
+                        alert("no");
+                        $("#employeeName").append("<p>Wrong</p>");
+                        $("#employeeName").attr("value", 0);
+                    }
+                    else
+                    {
+                        $("#setName").attr("value", data);
+                        console.log($("#setName"))
+                        alert("yes")
+                    }
+                }
+            });
+        }
+    }
+    function getValue() {
+        var id = $("#di1").val();
+        alert(id);
+        $("#purchaseId").attr("value", id);
+    }
+
+</script>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> 商品 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/comm/add">添加商品</a></li>
+                                    <li><a href="/comm/list">所有商品</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> 进货 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/pur/add">进货信息添加</a></li>
+                                    <li><a href="form_wizards.html">Form Wizard</a></li>
+                                    <li><a href="form_buttons.html">Form Buttons</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-desktop"></i> 流水 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/rec/list">l流水查询</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-table"></i> 库存管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/store/add">库存信息添加</a></li>
+                                    <li><a href="/store/list">获取所有库存</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-bar-chart-o"></i> 进货管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/res/add">进货信息添加</a></li>
+                                    <li><a href="/res/list">获取所有进货信息</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-bar-chart-o"></i> 出库管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/res/add">出库信息添加</a></li>
+                                    <li><a href="/res/list">获取所有出库信息</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-clone"></i>供应商管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/sup/add">供应商添加</a></li>
+                                    <li><a href="/sup/list">展示供应商</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/img.jpg" alt="">John Doe
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;">Help</a></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Form Elements</h3>
+                    </div>
+
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Form Design <small>different form elements</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""  th:action="@{/pur/createPurchase}" method="post">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >进货单次<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="di1" required="required" class="form-control col-md-7 col-xs-12" name="purchaseId">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >进货时间 <span class="required" >*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="di2" required="required" class="form-control col-md-7 col-xs-12" name="purchaseAt">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >负责人姓名 <span class="required" >*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="employeeName" required="required" class="form-control col-md-7 col-xs-12"  onblur="requestJson()">
+                                        </div>
+                                    </div>
+                                    <input type="text" id="setName" name="employeeId" hidden>
+
+
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button class="btn btn-primary" type="submit">Cancel</button>
+                                            <button class="btn btn-primary" type="reset" onclick="getValue()">Reset</button>
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="form2" data-parsley-validate="" class="form-inline" novalidate=""  >
+                        <input id="purchaseId" name="purchaseId">
+
+                        <table id="tb" >
+                            <tr>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >商品ID <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="div1" required="required" class="form-control col-md-7 col-xs-12" name="commodityId">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >进货价格 <span class="required" >*</span>
+                                    </label>
+                                    <input type="text" id="div2" required="required" class="form-control col-md-7 col-xs-12" name="purchasePrice">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >供货商 <span class="required" >*</span>
+                                    </label>
+                                    <input type="text" id="div3" required="required" class="form-control col-md-7 col-xs-12" name="supplierId">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >购买数量<span class="required" >*</span>
+                                    </label>
+                                    <input type="text" id="div4" required="required" class="form-control col-md-7 col-xs-12" name="purchaseAmount">
+                                </div>
+                                <button class="btn btn-primary" onclick="add()">Reset</button>
+                            </tr>
+
+
+                        </table>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="submitUserList_4()">Submit</button>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+
+
+<script>
+    var count = 1;
+    function add() {
+        var trObj = document.createElement("tr");
+        trObj.id = new Date().getTime();
+        count++;
+        trObj.innerHTML = "     <div class=\"form-group\">\n" +
+            "                                <label class=\"control-label col-md-3 col-sm-3 col-xs-12\" >商品名称 <span class=\"required\">*</span>\n" +
+            "                                </label>\n" +
+            "                                <input type=\"text\" id=\"div1\" required=\"required\" class=\"form-control col-md-7 col-xs-12\" name=\"commodityId\">\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"control-label col-md-3 col-sm-3 col-xs-12\" >进货价格 <span class=\"required\" >*</span>\n" +
+            "                                </label>\n" +
+            "                                <input type=\"text\" id=\"div2\" required=\"required\" class=\"form-control col-md-7 col-xs-12\" name=\"purchasePrice\">\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"control-label col-md-3 col-sm-3 col-xs-12\" >供货商 <span class=\"required\" >*</span>\n" +
+            "                                </label>\n" +
+            "                                <input type=\"text\" id=\"div3\" required=\"required\" class=\"form-control col-md-7 col-xs-12\" name=\"supplierId\">\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"control-label col-md-3 col-sm-3 col-xs-12\" >购买数量<span class=\"required\" >*</span>\n" +
+            "                                </label>\n" +
+            "                                <input type=\"text\" id=\"div4\" required=\"required\" class=\"form-control col-md-7 col-xs-12\" name=\"purchaseAmount\">\n" +
+            "                            </div>\n" +
+            "                            <button class=\"btn btn-primary\"  onclick=\"add()\">Reset</button>";
+        document.getElementById("tb").appendChild(trObj);
+    }
+</script>
+<!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="../vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="../vendors/moment/min/moment.min.js"></script>
+<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+<!-- jQuery Tags Input -->
+<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<!-- Switchery -->
+<script src="../vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+<!-- Parsley -->
+<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="../vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="../vendors/starrr/dist/starrr.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
+<script>
+    (function($){
+        $.fn.serializeJson = function(){
+            var jsonData1 = {};
+            var serializeArray = this.serializeArray();
+            console.log(serializeArray);
+            // 先转换成{"id": ["12","14"], "name": ["aaa","bbb"], "pwd":["pwd1","pwd2"]}这种形式
+            $(serializeArray).each(function () {
+                if (jsonData1[this.name]) {
+                    if ($.isArray(jsonData1[this.name])) {
+                        jsonData1[this.name].push(this.value);
+                    } else {
+                        jsonData1[this.name] = [jsonData1[this.name], this.value];
+                    }
+                } else {
+                    jsonData1[this.name] = this.value;
+                }
+                console.log(jsonData1[this.name] + "---" + jsonData1[this.value]);
+
+            });
+            console.log(jsonData1);
+            // 再转成[{"id": "12", "name": "aaa", "pwd":"pwd1"},{"id": "14", "name": "bb", "pwd":"pwd2"}]的形式
+            var vCount = 0;
+            // 计算json内部的数组最大长度
+            for(var item in jsonData1){
+                var tmp = $.isArray(jsonData1[item]) ? jsonData1[item].length : 1;
+                vCount = (tmp > vCount) ? tmp : vCount;
+            }
+            var purchaseId = $(" input[id ='purchaseId']").val();
+            var jsonData2 = new Array();
+           // alert(purchaseId);
+            if(vCount === 1) {
+                for(var i = 0; i < vCount; i++){
+                    var jsonObj = {};
+                    jsonObj['purchaseId'] = purchaseId;
+                    for(var item in jsonData1) {
+                        console.log(item);
+                        console.log(jsonData1[item]);
+                        jsonObj[item] = jsonData1[item];
+                    }
+                    jsonData2.push(jsonObj);
+                }
+
+            }
+            else{
+                for(var i = 0; i < vCount; i++){
+                    var jsonObj = {};
+                    for(var item in jsonData1) {
+                        console.log(item);
+                        console.log(jsonData1[item][i]);
+                        jsonObj[item] = jsonData1[item][i];
+                    }
+                    jsonObj['purchaseId'] = purchaseId;
+
+                    jsonData2.push(jsonObj);
+                }
+
+            }
+
+            console.log(jsonObj);
+
+            return JSON.stringify(jsonData2);
+
+        };
+    })(jQuery);
+
+    function submitUserList_4() {
+      //  alert("ok");
+        var jsonStr = $("#form2").serializeJson();
+        console.log("jsonStr:\r\n" + jsonStr);
+       // alert(jsonStr);
+        $.ajax({
+            url: "/pur/addChild",
+            type: "POST",
+            contentType : 'application/json;charset=utf-8', //设置请求头信息
+            dataType:"json",
+            data: jsonStr,
+            success: function(data){
+                //alert(data);
+            },
+            error: function(res){
+                alert(res.responseText);
+            }
+        });
+    }
+</script>
+
+</html>

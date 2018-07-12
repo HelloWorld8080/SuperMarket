@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.OutBoundDao">
+    <insert id="create" parameterType="OutBound">
+        insert into sm_outbound (commodity_id, outbound_amount, outbound_at, employee_id)
+        value (#{commodityId}, #{outboundAmount}, #{outboundAt}, #{employeeId})
+    </insert>
+    <select id="getAllName" resultType="OutBoundName">
+        select a.commodity_id, a.outbound_at, a.employee_id,  a.outbound_amount,
+        b.commodity_name, c.employee_name
+         from sm_outbound a, sm_commodity b, sm_employees c
+         where a.employee_id = c.employee_id and a.commodity_id = b.commodity_id
+    </select>
+    <select id="querySingle" resultType="OutBound">
+        select * from sm_outbound where commodity_id = #{id}
+    </select>
+    <select id="getBy" resultType="OutBoundName" parameterType="Map">
+        select a.commodity_id, a.outbound_at, a.employee_id, a.outbound_amount,
+        b.commodity_name, c.employee_name
+        from sm_outbound a, sm_commodity b, sm_employees c
+        where 1 = 1
+        <if test="employeeId != '' ">
+            and a.employee_id = #{employeeId}
+        </if>
+        <if test="beginDate != '' ">
+            <if test="endDate != '' ">
+                and a.outbound_at between #{beginDate} and #{endDate}
+            </if>
+        </if>
+        and a.employee_id = c.employee_id and a.commodity_id = b.commodity_id
+    </select>
+
+</mapper>
