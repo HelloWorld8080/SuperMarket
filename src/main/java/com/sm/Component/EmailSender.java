@@ -84,7 +84,7 @@ public class EmailSender {
     public static void sendTemplate(String sendFrom, String[] sendTo, String subject, String user) throws MessagingException {
         MimeMessage mimeMessage = emailSender.javaMailSender.createMimeMessage();
 
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
         mimeMessageHelper.setFrom(sendFrom);
         mimeMessageHelper.setTo(sendTo);

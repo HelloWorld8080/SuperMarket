@@ -28,7 +28,7 @@ public class test {
                 .append("</html>");
         //StringBuilder htmlContent = new StringBuilder("hh").append("<html>").append("<p>").append("没办法").append("</p>").append("</html>");
       //  EmailSender.sendHtmlMessage(sendFrom, sendTo, subject, htmlContent.toString());
-        EmailSender.sendTemplate(sendFrom, sendTo, subject, "niu");
+        EmailSender.sendTemplate(sendFrom, sendTo, subject, "吴彦祖");
         System.out.println("邮件发送成功.");
     }
 }

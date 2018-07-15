@@ -39,4 +39,6 @@ public class LoginController {
 //
 //        return user1 == null ? "no" : "yes";
     }
+//    @RequestMapping("/register")
+//    public String register(){}
 }

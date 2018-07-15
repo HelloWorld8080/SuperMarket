@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Storage {
+import java.io.Serializable;
+
+public class Storage implements Serializable {
     private Integer commodityId;
     private String storageAmount;
     private String storageCheckAt;

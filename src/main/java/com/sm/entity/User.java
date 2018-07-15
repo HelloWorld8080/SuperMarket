@@ -3,12 +3,15 @@ package com.sm.entity;
 public class User {
     private Integer id;
 
+    private String email;
+
     private String userName;
 
     private String passWord;
 
-    public User(Integer id, String userName, String passWord) {
+    public User(Integer id, String email, String userName, String passWord) {
         this.id = id;
+        this.email = email;
         this.userName = userName;
         this.passWord = passWord;
     }
@@ -23,6 +26,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getUserName() {

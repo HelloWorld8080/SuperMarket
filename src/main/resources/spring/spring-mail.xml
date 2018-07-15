@@ -45,4 +45,7 @@
             </props>
         </property>
     </bean>
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/templates/" />
+    </bean>
 </beans>
