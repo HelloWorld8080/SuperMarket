@@ -9,6 +9,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,11 +47,18 @@ public class LoginController {
 //        return user1 == null ? "no" : "yes";
     }
 
-    @RequestMapping("/register")
-    public String register(User user) throws MessagingException {
-        System.out.println(user.getPassWord());
-        userService.insertSelective(user);
-        EmailSender.sendTemplate("justinniu@yeah.net", new String[]{user.getEmail()}, "欢迎注册", user.getUserName());
-        return "redirect:/login/login";
+    @RequestMapping("/regis")
+    public String register(User user, Model model) throws MessagingException {
+        System.out.println(user);
+        if (userService.selectByUserName(user.getUserName()) == null) {
+            userService.insertSelective(user);
+            EmailSender.sendTemplate("justinniu@yeah.net", new String[]{user.getEmail()}, "欢迎注册", user.getUserName());
+            return "redirect:/comm/list";
+        }
+        else {
+            model.addAttribute("msg", "该用户 " + user.getUserName() + " 已注册");
+            return "register";
+        }
+
     }
 }
