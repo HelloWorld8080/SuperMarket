@@ -66,7 +66,7 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -140,11 +140,13 @@
             </div>
         </div>
 
-            <div class="right_col" role="main">
+        <div class="right_col" role="main">
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Tables <small>Some examples to get you started</small></h3>
+                        <h3>Tables
+                            <small>Some examples to get you started</small>
+                        </h3>
                     </div>
 
                     <div class="title_right">
@@ -165,15 +167,18 @@
 
                     <div class="clearfix"></div>
 
-                    <div class="col-md-8 col-sm-7 col-xs-12 " >
+                    <div class="col-md-8 col-sm-7 col-xs-12 ">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Hover rows <small>Try hovering over the rows</small></h2>
+                                <h2>Hover rows
+                                    <small>Try hovering over the rows</small>
+                                </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Settings 1</a>
                                             </li>
@@ -202,7 +207,7 @@
                                     <tr th:each="s : ${commodities} ">
                                         <th scope="row" th:text="${s.commodityId} "></th>
                                         <th th:text="${s.commodityName}"></th>
-                                        <td th:text="${s.commodityPrice}" ></td>
+                                        <td th:text="${s.commodityPrice}"></td>
                                         <td th:text="${s.discountStartAt}"></td>
                                         <td th:text="${s.discountEndAt}"></td>
                                         <td th:text="${s.commodityBarCode}"></td>
@@ -211,15 +216,22 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                </table>
 
+                                </table>
+                                <div class="btn-group">
+                                    <a class="btn btn-info" type="button" th:href="@{/comm/list?id=1}">1</a>
+                                    <a class="btn btn-info " type="button" th:href="@{/comm/list?id=2}">2</a>
+                                    <a class="btn btn-info" type="button" th:href="@{/comm/list?id=3}">3</a>
+                                    <a class="btn btn-info" type="button" th:href="@{/comm/list?id=4}" >4</a>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -259,4 +271,9 @@
 <script src="../vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
+<script>
+    function f() {
+        
+    }
+</script>
 </html>

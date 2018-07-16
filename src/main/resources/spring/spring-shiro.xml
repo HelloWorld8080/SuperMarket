@@ -51,8 +51,8 @@
                 <!--/callback=anon-->
                 <!--/=authc-->
                 <!--/**=anon-->
-                /comm/**=perms[admin:manage]
-                /login/**=anon
+                <!--/comm/**=perms[admin:manage]-->
+                <!--/login/**=anon-->
             </value>
         </property>
     </bean>

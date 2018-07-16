@@ -5,13 +5,13 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- spring mail begin ############################################## -->
     <!--<bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="locations">-->
-            <!--<list>-->
-                <!--<value>mail.properties</value>-->
-            <!--</list>-->
-        <!--</property>-->
+    <!--<property name="locations">-->
+    <!--<list>-->
+    <!--<value>mail.properties</value>-->
+    <!--</list>-->
+    <!--</property>-->
     <!--</bean>-->
-    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <!-- spring mail demo end ############################################## -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -35,7 +35,8 @@
         <property name="velocityProperties">
             <props>
                 <prop key="resource.loader">file</prop>
-                <prop key="file.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                <prop key="file.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
                 </prop>
                 <prop key="file.resource.loader.cache">false</prop>
                 <prop key="file.resource.loader.modificationCheckInterval">3</prop>
@@ -46,6 +47,6 @@
         </property>
     </bean>
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/templates/" />
+        <property name="resourceLoaderPath" value="/WEB-INF/templates/"/>
     </bean>
 </beans>

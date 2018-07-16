@@ -38,10 +38,9 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals){
-        System.out.println("S          H        I          R            O");
         //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()
         String currentUsername = (String)super.getAvailablePrincipal(principals);
-        System.out.println(currentUsername);
+//        System.out.println(currentUsername);
 //      List<String> roleList = new ArrayList<String>();
 //      List<String> permissionList = new ArrayList<String>();
 //      //从数据库中获取当前登录用户的详细信息
@@ -72,15 +71,15 @@ public class MyRealm extends AuthorizingRealm {
 //      simpleAuthorInfo.addStringPermissions(permissionList);
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
         //实际中可能会像上面注释的那样从数据库取得
-        if(null!= currentUsername && "niu".equals(currentUsername)){
+        if(null!= currentUsername && ("niu".equals(currentUsername) || "123".equals(currentUsername)) ){
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色
             simpleAuthorInfo.addRole("admin");
             //添加权限
             simpleAuthorInfo.addStringPermission("admin:manage");
-            System.out.println("已为用户[niu]赋予了[admin]角色和[admin:manage]权限");
+//            System.out.println("已为用户[niu]赋予了[admin]角色和[admin:manage]权限");
             return simpleAuthorInfo;
         }else if(null!=currentUsername && "test".equals(currentUsername)){
-            System.out.println("当前用户[test]无授权");
+//            System.out.println("当前用户[test]无授权");
             return simpleAuthorInfo;
         }
         //若该方法什么都不做直接返回null的话,就会导致任何用户访问/admin/listUser.jsp时都会自动跳转到unauthorizedUrl指定的地址
@@ -95,15 +94,14 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-        System.out.println("S          H        I          R            O");
 
         //获取基于用户名和密码的令牌
         //实际上这个authcToken是从LoginController里面currentUser.login(token)传过来的
         //两个token的引用都是一样的,本例中是org.apache.shiro.authc.UsernamePasswordToken@33799a1e
         UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
-        System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
+//        System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
         User user = userService.selectByUserName(token.getUsername());
-
+//        System.out.println(user);
         if(user.getPassWord().equals(String.valueOf(token.getPassword()))){
             AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassWord(), "123");
             this.setSession("currentUser", user);

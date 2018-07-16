@@ -56,7 +56,7 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -140,7 +140,8 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <img src="images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -158,14 +159,15 @@
                         </li>
 
                         <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="badge bg-green">6</span>
                             </a>
                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -177,7 +179,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -189,7 +191,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -201,7 +203,7 @@
                                 </li>
                                 <li>
                                     <a>
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
                                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -251,12 +253,15 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Form Design <small>different form elements</small></h2>
+                                <h2>Form Design
+                                    <small>different form elements</small>
+                                </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Settings 1</a>
                                             </li>
@@ -270,50 +275,60 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <br />
-                                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""  th:action="@{/comm/create}" method="post">
+                                <br/>
+                                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left"
+                                      novalidate="" th:action="@{/comm/create}" method="post">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >商品名称 <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">商品名称 <span
+                                                class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="div1" required="required" class="form-control col-md-7 col-xs-12" name="commodityName">
+                                            <input type="text" id="div1" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="commodityName">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >商品价格 <span class="required" >*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">商品价格 <span
+                                                class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="div2" required="required" class="form-control col-md-7 col-xs-12" name="commodityPrice">
+                                            <input type="text" id="div2" required="required"
+                                                   class="form-control col-md-7 col-xs-12" name="commodityPrice">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >是否打折
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">是否打折
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="div4" class="form-control col-md-7 col-xs-12" name="isDiscount">
+                                            <input type="text" id="div4" class="form-control col-md-7 col-xs-12"
+                                                   name="isDiscount">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label  class="control-label col-md-3 col-sm-3 col-xs-12">打折开始于
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">打折开始于
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="div5" class="form-control col-md-7 col-xs-12" type="date" name="discountStartAt">
+                                            <input id="div5" class="form-control col-md-7 col-xs-12" type="date"
+                                                   name="discountStartAt">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">打折结束于
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="div6" class="date-picker form-control col-md-7 col-xs-12"  type="date" name="discountEndAt">
+                                            <input id="div6" class="date-picker form-control col-md-7 col-xs-12"
+                                                   type="date" name="discountEndAt">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">商品二维码<span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">商品二维码<span
+                                                class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="div7" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" name="commodityBarCode">
+                                            <input id="div7" class="date-picker form-control col-md-7 col-xs-12"
+                                                   required="required" type="text" name="commodityBarCode">
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

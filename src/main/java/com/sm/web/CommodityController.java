@@ -1,6 +1,8 @@
 package com.sm.web;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sm.Component.EmailSender;
 import com.sm.entity.Commodity;
 import com.sm.entity.NameAndTime;
@@ -20,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -51,9 +54,11 @@ public class CommodityController {
     JavaMailSender mailSender;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String all(Model model) throws Exception {
-        System.out.println(commodityService.selectAll());
-        model.addAttribute("commodities", commodityService.selectAll());
+    public String all(Model model, @RequestParam(value = "id",defaultValue ="1") String id) throws Exception {
+        PageHelper.startPage(Integer.valueOf(id), 3);
+        List<Commodity> list = commodityService.selectAll();
+        PageInfo<Commodity> page = new PageInfo<Commodity>(list);
+        model.addAttribute("commodities", page.getList());
 //        System.out.println(jedisPool);
 ////        System.out.println(jedisPool.getResource().get("test"));
 
@@ -66,7 +71,7 @@ public class CommodityController {
 //        commodity.setCommodityName(request.getParameter("commodity_name"));
 //        commodity.setCommodityPrice(Double.valueOf(request.getParameter("commodity_price")));
         commodityService.create(commodity);
-        return "redirect:/comm/list";
+        return "redirect:/comm/list?id=1";
     }
 
     @RequestMapping(value = "/edit/{commodityId}")
@@ -79,7 +84,7 @@ public class CommodityController {
     public String update(Commodity commodity) {
         System.out.println(commodity);
         commodityService.edit(commodity);
-        return "redirect:list";
+        return "redirect:list?id=1";
     }
 
     @RequestMapping("/{page}")

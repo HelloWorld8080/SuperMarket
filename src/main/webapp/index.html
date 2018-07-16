@@ -37,16 +37,17 @@
     $.ajax({
         url: "/comm/list",
         type: "POST",
-        contentType : 'application/json;charset=utf-8', //设置请求头信息
-        dataType:"json",
+        contentType: 'application/json;charset=utf-8', //设置请求头信息
+        dataType: "json",
         data: jsonStr,
-        success: function(data){
+        success: function (data) {
             alert(data);
         },
-        error: function(res){
+        error: function (res) {
             alert(res.responseText);
-        }});
-    </script>
+        }
+    });
+</script>
 <body>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
@@ -144,23 +145,23 @@
 
 <!-- top navigation -->
 
-        <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="" href="login.html" data-original-title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
-        </div>
-        <!-- /menu footer buttons -->
-    </div>
+<!-- /menu footer buttons -->
+<div class="sidebar-footer hidden-small">
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
+        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
+        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="" href="login.html" data-original-title="Logout">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+</div>
+<!-- /menu footer buttons -->
+</div>
 </div>
 <div id="test"></div>
 </body>

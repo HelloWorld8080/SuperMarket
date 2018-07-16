@@ -51,4 +51,14 @@ public class User {
     public void setPassWord(String passWord) {
         this.passWord = passWord == null ? null : passWord.trim();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                '}';
+    }
 }

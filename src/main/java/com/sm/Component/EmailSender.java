@@ -90,9 +90,11 @@ public class EmailSender {
         mimeMessageHelper.setTo(sendTo);
         mimeMessageHelper.setSubject(subject);
         HashMap<String, Object> model = new HashMap<>();
+        model.put("from", sendFrom);
         model.put("username", user);
+        model.put("email", sendTo[0]);
         String text = VelocityEngineUtils.mergeTemplateIntoString(emailSender.velocityEngine, "template.vm", "UTF-8", model);mimeMessageHelper.setText(text, true);
-
+        System.out.println(text);
         // 发送邮件
         emailSender.javaMailSender.send(mimeMessage);
     }

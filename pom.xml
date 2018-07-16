@@ -111,11 +111,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>4.0.0</version>
-        </dependency>
+
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
@@ -256,6 +252,7 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+
         <!--Email模板-->
 
         <dependency>
@@ -268,6 +265,13 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
+        </dependency>
+
+        <!--分页配置-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.4</version>
         </dependency>
 
 

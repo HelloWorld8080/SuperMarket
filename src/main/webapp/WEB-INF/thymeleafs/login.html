@@ -66,19 +66,19 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="@{/login/valid}">
+            <form th:action="@{/login/register}" id="form2">
               <h1>Create Account</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Username" required="" name="userName"  />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" name="passWord"/>
+                <input type="email" class="form-control" placeholder="Email" required="" name="email"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" required="" name="passWord"/>
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <a class="btn btn-default submit" onclick="sub1()">Submit</a>
               </div>
 
               <div class="clearfix"></div>
@@ -140,6 +140,10 @@
   <script>
       function sub() {
           var form = $('#form1');
+          form.submit();
+      }
+      function sub1() {
+          var form = $('#form2');
           form.submit();
       }
   </script>
