@@ -11,6 +11,12 @@ import com.sm.redis.RedisCache;
 import com.sm.service.CommodityService;
 
 import com.sm.service.ReceiptService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,20 +34,19 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiresRoles("admin")
 @Controller
 @RequestMapping(value = "comm")
 public class CommodityController {
+    private final static String EXCEL_XLS = "xls";
+    private final static String EXCEL_XLSX = "xlsx";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     ReceiptService receiptService;
@@ -60,12 +65,87 @@ public class CommodityController {
 //        List<Commodity> list = commodityService.selectAll();
 //        PageInfo<Commodity> page = new PageInfo<Commodity>(list);
         PageInfo<Commodity> page = PageHelper.startPage(id, 3).doSelectPageInfo(() -> commodityService.selectAll());
-
+        List<Commodity> list = commodityService.selectAll();
         model.addAttribute("commodities", page.getList());
 //        System.out.println(jedisPool);
 ////        System.out.println(jedisPool.getResource().get("test"));
+        File file = new File("/Users/justinniu/learn/commodity.xlsx");
+
+        FileOutputStream outputStream = null;
+        try {
+            Workbook workbook = getWorkbok(file);
+            Sheet sheet = workbook.getSheetAt(0);
+            int rowNumber = sheet.getLastRowNum();
+            System.out.println("原始数据总行数，除属性列：" + rowNumber);
+
+            Field[] fields = Commodity.class.getDeclaredFields();
+            List<String> propertyName = Arrays.stream(fields).map(Field::getName).collect(Collectors.toList());
+
+            List<Method> methodList = Arrays.stream(Commodity.class.getDeclaredMethods()).filter(method-> method.getName().startsWith("g")).collect(Collectors.toList());
+            List<Method> newMethod = new ArrayList<>();
+
+            int size = propertyName.size();
+            for (int i = 0; i <  size; i++) {
+                for (int j = 0;  j  < size; j++) {
+                    Method method = methodList.get(j);
+                    if(method.getName().contains(propertyName.get(i).substring(1))) {
+                        newMethod.add(method);
+                    }
+                }
+            }
+            for (int i = 1; i <= rowNumber; i++) {
+                Row row = sheet.getRow(i);
+                sheet.removeRow(row);
+            }
+            for (int i = 0; i < list.size(); i++) {
+                Row row = sheet.createRow(i + 1);
+                Commodity commodity = list.get(i);
+                for (int j = 0; j <  propertyName.size(); j++) {
+                    Method method = newMethod.get(j);
+                    Object object = method.invoke(commodity);
+                    String value =  object == null ? "" : object.toString();
+                    System.out.println(value);
+                    Cell cell = row.createCell(j);
+                    cell.setCellValue(value);
+                }
+            }
+
+//            List<Row> rowList = list.forEach(sheet::getRow);
+//            for (int i = 1; i < list.size(); i++) {
+//                Row row = sheet.getRow(i);
+//                List<Cell> cellList;
+//                propertyName.forEach(row.createCell() -> cellList.add().);
+//
+//            }
+            outputStream = new FileOutputStream(file);
+            workbook.write(outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        try {
+            if (outputStream != null) {
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+        System.out.println("数据导出成功");
+
 
         return "Commodity/list";
+    }
+
+    public static Workbook getWorkbok(File file) throws IOException {
+        Workbook wb = null;
+        FileInputStream in = new FileInputStream(file);
+        if (file.getName().endsWith(EXCEL_XLS)) {     //Excel&nbsp;2003
+            wb = new HSSFWorkbook(in);
+        } else if (file.getName().endsWith(EXCEL_XLSX)) {    // Excel 2007/2010
+            wb = new XSSFWorkbook(in);
+        }
+        return wb;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

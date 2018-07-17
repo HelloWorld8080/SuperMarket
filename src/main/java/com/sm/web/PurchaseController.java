@@ -78,10 +78,11 @@ public class PurchaseController {
 
     @RequestMapping(value = "/{page}")
     private String addPage(@PathVariable("page") String page) {
+        System.out.println("zzzz");
         return "Purchase/" + page;
     }
 
-    @RequestMapping(value = "/updateimg", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploade", method = RequestMethod.POST)
     @ResponseBody
     public String uplode(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) throws IOException {
         String path = "";
@@ -92,7 +93,7 @@ public class PurchaseController {
             String contentType = file.getContentType();
             //获得文件后缀名称
             String imageName = contentType.substring(contentType.indexOf("/") + 1);
-            path = "C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\img" + uuid + "." + imageName;
+            path = "/Users/justinniu/" + uuid + "." + imageName;
             file.transferTo(new File(path));
         }
 
