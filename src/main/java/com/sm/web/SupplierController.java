@@ -1,5 +1,7 @@
 package com.sm.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sm.entity.Supplier;
 import com.sm.service.SupplierService;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.logging.Logger;
 
@@ -30,8 +33,11 @@ public class SupplierController {
     }
 
     @RequestMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("suppliers", supplierService.getAll());
+    public String list(@RequestParam(value = "id", defaultValue = "1")int id, Model model) {
+        PageHelper.startPage(id, 3);
+        PageInfo<Supplier> info = new PageInfo<Supplier>(supplierService.getAll());
+
+        model.addAttribute("suppliers", info.getList());
         return "Supplier/list";
     }
 

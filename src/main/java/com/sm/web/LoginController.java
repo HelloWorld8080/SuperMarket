@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
@@ -31,12 +32,13 @@ public class LoginController {
     }
 
     @RequestMapping("/valid")
-    public String valid(User user) {
+    public String valid(User user, HttpSession session) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassWord());
 
         try {
             subject.login(token);
+         //   session.setAttribute("currentUser", user.getUserName());
             return "redirect:/comm/list?id=1";
         } catch (Exception e) {
             return "login";

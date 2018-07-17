@@ -1,6 +1,7 @@
 package com.sm.web;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sm.Component.EmailSender;
@@ -54,10 +55,12 @@ public class CommodityController {
     JavaMailSender mailSender;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String all(Model model, @RequestParam(value = "id",defaultValue ="1") String id) throws Exception {
-        PageHelper.startPage(Integer.valueOf(id), 3);
-        List<Commodity> list = commodityService.selectAll();
-        PageInfo<Commodity> page = new PageInfo<Commodity>(list);
+    public String all(Model model, @RequestParam(value = "id",defaultValue ="1") int id) throws Exception {
+//        PageHelper.startPage(Integer.valueOf(id), 3);
+//        List<Commodity> list = commodityService.selectAll();
+//        PageInfo<Commodity> page = new PageInfo<Commodity>(list);
+        PageInfo<Commodity> page = PageHelper.startPage(id, 3).doSelectPageInfo(() -> commodityService.selectAll());
+
         model.addAttribute("commodities", page.getList());
 //        System.out.println(jedisPool);
 ////        System.out.println(jedisPool.getResource().get("test"));
