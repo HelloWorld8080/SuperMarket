@@ -11,6 +11,7 @@ import com.sm.redis.RedisCache;
 import com.sm.service.CommodityService;
 
 import com.sm.service.ReceiptService;
+import com.sun.deploy.net.HttpResponse;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.core.RedisAccessor;
+import org.springframework.http.HttpRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,11 +35,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -65,11 +70,22 @@ public class CommodityController {
 //        List<Commodity> list = commodityService.selectAll();
 //        PageInfo<Commodity> page = new PageInfo<Commodity>(list);
         PageInfo<Commodity> page = PageHelper.startPage(id, 3).doSelectPageInfo(() -> commodityService.selectAll());
-        List<Commodity> list = commodityService.selectAll();
         model.addAttribute("commodities", page.getList());
 //        System.out.println(jedisPool);
 ////        System.out.println(jedisPool.getResource().get("test"));
-        File file = new File("/Users/justinniu/learn/commodity.xlsx");
+
+        productExcel();
+        System.out.println("数据导出成功");
+
+
+        return "Commodity/list";
+    }
+
+    public void productExcel() {
+
+        List<Commodity> list = commodityService.selectAll();
+
+        File file = new File("C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\text.xlsx");
 
         FileOutputStream outputStream = null;
         try {
@@ -84,8 +100,11 @@ public class CommodityController {
             List<Method> methodList = Arrays.stream(Commodity.class.getDeclaredMethods()).filter(method-> method.getName().startsWith("g")).collect(Collectors.toList());
             List<Method> newMethod = new ArrayList<>();
 
+            Row firstRow = sheet.createRow(0);
+            Cell[] cells = new Cell[10];
             int size = propertyName.size();
             for (int i = 0; i <  size; i++) {
+                cells[i] = firstRow.createCell(i);
                 for (int j = 0;  j  < size; j++) {
                     Method method = methodList.get(j);
                     if(method.getName().contains(propertyName.get(i).substring(1))) {
@@ -97,6 +116,17 @@ public class CommodityController {
                 Row row = sheet.getRow(i);
                 sheet.removeRow(row);
             }
+            cells[0].setCellValue("编号");
+            cells[1].setCellValue("商品名称");
+            cells[2].setCellValue("价格");
+            cells[3].setCellValue("是否打折");
+            cells[4].setCellValue("打折开始于");
+            cells[5].setCellValue("打折结束于");
+            cells[6].setCellValue("二维码");
+
+
+
+
             for (int i = 0; i < list.size(); i++) {
                 Row row = sheet.createRow(i + 1);
                 Commodity commodity = list.get(i);
@@ -122,20 +152,17 @@ public class CommodityController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-        try {
-            if (outputStream != null) {
-                outputStream.flush();
-                outputStream.close();
+            try {
+                if (outputStream != null) {
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-        System.out.println("数据导出成功");
 
-
-        return "Commodity/list";
-    }
 
     public static Workbook getWorkbok(File file) throws IOException {
         Workbook wb = null;
@@ -146,6 +173,28 @@ public class CommodityController {
             wb = new XSSFWorkbook(in);
         }
         return wb;
+    }
+    @RequestMapping(value = "/down")
+    public void down(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //模拟文件，myfile.txt为需要下载的文件
+
+        //获取输入流
+        InputStream bis = new BufferedInputStream(new FileInputStream(new File("C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\text.xlsx")));
+        //假如以中文名下载的话
+        String filename = "商品列表.xlsx";
+        //转码，免得文件名中文乱码
+        filename = URLEncoder.encode(filename, "UTF-8");
+        //设置文件下载头
+        response.addHeader("Content-Disposition", "attachment;filename=" + filename);
+        //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+        response.setContentType("multipart/form-data");
+        BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+        int len = 0;
+        while ((len = bis.read()) != -1) {
+            out.write(len);
+            out.flush();
+        }
+        out.close();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

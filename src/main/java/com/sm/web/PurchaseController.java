@@ -1,7 +1,10 @@
 package com.sm.web;
 
+import com.sm.Tools.ExcelUtils;
+import com.sm.entity.Commodity;
 import com.sm.entity.Purchase;
 import com.sm.entity.Purchild;
+import com.sm.service.CommodityService;
 import com.sm.service.PurchaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +28,10 @@ public class PurchaseController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-
     private PurchaseService purchaseService;
+
+    @Autowired
+    private CommodityService commodityService;
 
     @RequestMapping(value = "/createPurchase", method = RequestMethod.POST)
     private String create(Purchase purchase, Model model) {
@@ -88,15 +93,20 @@ public class PurchaseController {
         String path = "";
         if (!file.isEmpty()) {
             //生成uuid作为文件名称
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            //String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             //获得文件类型（可以判断如果不是图片，禁止上传）
-            String contentType = file.getContentType();
+           // String contentType = file.getContentType();
             //获得文件后缀名称
-            String imageName = contentType.substring(contentType.indexOf("/") + 1);
-            path = "/Users/justinniu/" + uuid + "." + imageName;
+          //  String imageName = contentType.substring(contentType.indexOf("/") + 1);
+            path = "C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\" + "commodity" + "." + "xlsx";
             file.transferTo(new File(path));
         }
-
+        File file1 =new File(path);
+        Commodity commodity = new Commodity();
+        List<Commodity> list = ExcelUtils.readExcel(file1, commodity);
+        for (Commodity c : list) {
+            commodityService.create(c);
+        }
         return "";
     }
 }
