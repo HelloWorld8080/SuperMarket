@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr th:each="nameandtime : ${resultList}">
+      <td th:text="${nameandtime.commodityName}"></td>
+        <!--<td th:each="key : ${zz.keySet()}" th:text="${zz.get(key)}"> </td>&ndash;&gt;-->
+
+        <!--<td th:each="entry: ${zz}" th:text= "${entry.value}"/>-->
+    </tr>
+
+</table>
+</body>
+<script type="text/javascript" src="/jquery/jquery-3.3.1.js"></script>
+<script>
+    $.fn.serializeObject = function () {
+        var jsonData1 = {};
+        var serializeArray = this.serializeArray();
+        alert(serializeArray);
+        // 先转换成{"id": ["12","14"], "name": ["aaa","bbb"], "pwd":["pwd1","pwd2"]}这种形式
+        $(serializeArray).each(function () {
+            if (jsonData1[this.name]) {
+                if ($.isArray(jsonData1[this.name])) {
+                    jsonData1[this.name].push(this.value);
+                } else {
+                    jsonData1[this.name] = [jsonData1[this.name], this.value];
+                }
+            } else {
+                jsonData1[this.name] = this.value;
+            }
+        });
+        return JSON.stringify(jsonData1);
+    }
+    function transform() {
+        var zz = $("#form1").serializeObject();
+        $.ajax({
+            url: "/comm/fan",
+            type: "POST",
+            contentType : 'application/json;charset=utf-8', //设置请求头信息
+            dataType:"json",
+            data: zz,
+            success: function(data){
+                alert(data);
+            },
+            error: function(res){
+                alert(res.responseText);
+            }
+        });
+    }
+</script>
+<body>
+<form id="form1" method="post">
+    <table>
+        <tr>
+            <td>名称</td>
+            <td>
+                <input name="receiptPrice" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>日期</td>
+
+            <td>
+                <input name="receiptDiscount" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                提交
+            </td>
+            <td>
+                <input name="submit" type="button" onclick="transform()">
+            </td>
+        </tr>
+    </table>
+</form>
+<form th:action="@{/comm/down}">
+    <input type="submit" th:value="提交">
+</form>
+</body>
+
+</html>

@@ -88,7 +88,6 @@ public class PurchaseController {
     }
 
     @RequestMapping(value = "/uploade", method = RequestMethod.POST)
-    @ResponseBody
     public String uplode(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) throws IOException {
         String path = "";
         if (!file.isEmpty()) {

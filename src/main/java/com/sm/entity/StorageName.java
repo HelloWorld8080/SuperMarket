@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class StorageName extends Storage {
+import java.io.Serializable;
+
+public class StorageName extends Storage implements Serializable {
     private String commodityName;
     private String employeeName;
 

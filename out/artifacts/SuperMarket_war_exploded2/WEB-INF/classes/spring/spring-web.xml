@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+  <!-- 配置SpringMVC -->
+  <!-- 1.开启SpringMVC注解模式 -->
+  <!-- 简化配置：
+      (1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter
+      (2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持
+  -->
+  <mvc:annotation-driven/>
+
+  <!-- 2.静态资源默认servlet配置
+      (1)加入对静态资源的处理：js,gif,png
+      (2)允许使用"/"做整体映射
+   -->
+  <mvc:default-servlet-handler/>
+  <!-- 3.配置jsp 显示ViewResolver -->
+  <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+    <!--<property name="prefix" value="/WEB-INF/jsp/" />-->
+    <!--<property name="suffix" value=".jsp" />-->
+  <!--</bean>-->
+    <!-- 使用thymeleaf解析 -->
+    <bean id="templateResolver"
+          class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/thymeleafs/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML" />
+        <property name="cacheable" value="false" />
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+
+    </bean>
+
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+
+    <!-- 开启矩阵map-->
+    <mvc:annotation-driven enable-matrix-variables="true"></mvc:annotation-driven>
+  <!-- 4.扫描web相关的bean -->
+  <context:component-scan base-package="com.sm.web" />
+    <!-- 5.声明类型转换器 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <list>
+                <bean class="com.sm.converter.StringDate">
+                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 对文件上传的处理，这里声明的id必须为multipartResolver-->
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <!--  最大为100M，单位为字节   -->
+        <property name="maxUploadSize" value="104857600"></property>
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+    <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+
+
+</beans>

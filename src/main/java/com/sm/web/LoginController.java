@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
@@ -61,6 +62,10 @@ public class LoginController {
             model.addAttribute("msg", "该用户 " + user.getUserName() + " 已注册");
             return "register";
         }
-
+    }
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("currentUser");
+        return "login";
     }
 }

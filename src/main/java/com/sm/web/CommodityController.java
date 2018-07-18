@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sm.Component.EmailSender;
+import com.sm.Tools.ExcelUtils;
 import com.sm.entity.Commodity;
 import com.sm.entity.NameAndTime;
 import com.sm.redis.RedisCache;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -222,6 +224,29 @@ public class CommodityController {
     @RequestMapping("/{page}")
     public String Page(@PathVariable("page") String page) {
         return "Commodity/" + page;
+    }
+
+
+    @RequestMapping(value = "/uploade", method = RequestMethod.POST)
+    public String uplode(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) throws IOException {
+        String path = "";
+        if (!file.isEmpty()) {
+//            生成uuid作为文件名称
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            //获得文件类型（可以判断如果不是图片，禁止上传）
+            // String contentType = file.getContentType();
+            //获得文件后缀名称
+            //  String imageName = contentType.substring(contentType.indexOf("/") + 1);
+            path = "C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\" + "commodity" + uuid + "." + "xlsx";
+            file.transferTo(new File(path));
+        }
+        File file1 =new File(path);
+        Commodity commodity = new Commodity();
+        List<Commodity> list = ExcelUtils.readExcel(file1, commodity);
+        for (Commodity c : list) {
+            commodityService.create(c);
+        }
+        return "redirect:list";
     }
 
     @RequestMapping(value = "/fan", method = RequestMethod.POST)

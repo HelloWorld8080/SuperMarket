@@ -29,6 +29,7 @@ public class StorageController {
     @RequestMapping(value = "/list")
     public String list(Model model) {
         model.addAttribute("storages", storageService.getAllName());
+        System.out.println(storageService.getAllName());
         return "Storage/list";
     }
 

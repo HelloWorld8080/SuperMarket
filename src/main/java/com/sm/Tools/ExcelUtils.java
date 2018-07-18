@@ -26,10 +26,10 @@ public class ExcelUtils{
      */
     public static <T> List<T> readExcel(File file, T t) {
         try {
+           // InputStream inputStream = new FileInputStream(file.getAbsolutePath());
             List<List<String>> readList =new ArrayList<List<String>>();
 
             // 创建输入流，读取Excel
-            InputStream is = new FileInputStream(file.getAbsolutePath());
             // jxl提供的Workbook类
             Workbook wb = getWorkbok(file);
             // Excel的页签数量
@@ -82,7 +82,6 @@ public class ExcelUtils{
         } catch (InstantiationException e) {
             e.printStackTrace();
         } finally {
-
         }
 
         return null;

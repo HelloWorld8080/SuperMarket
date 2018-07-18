@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sm.dao.ReceiptDao">
+    <insert id="create" parameterType="Storage" >
+        insert into sm_storage (commodity_id, storage_amount, storage_check_at, employee_id, storage_alert)
+        value (#{commodityId}, #{storageAmount}, #{storageCheckAt}, #{employeeId}, #{storageAlert})
+    </insert>
+</mapper>
