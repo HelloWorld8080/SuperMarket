@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Purchase {
+import java.io.Serializable;
+
+public class Purchase implements Serializable {
     private int purchaseId;
     private String purchaseAt;
     private int employeeId;

@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     private int employeeId;
     private String employeeName;
     private String employeeSex;

@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class RechildAndName {
+import java.io.Serializable;
+
+public class RechildAndName implements Serializable {
     private Integer rechildId;
     private Integer receiptId;
     private Integer commodityId;

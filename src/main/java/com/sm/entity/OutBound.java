@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class OutBound {
+import java.io.Serializable;
+
+public class OutBound implements Serializable {
     private Integer outboundId;
     private Integer commodityId;
     private String outboundAt;

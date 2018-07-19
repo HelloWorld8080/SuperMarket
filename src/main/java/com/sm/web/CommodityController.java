@@ -87,8 +87,8 @@ public class CommodityController {
 
         List<Commodity> list = commodityService.selectAll();
 
-        File file = new File("C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\text.xlsx");
-
+        File base = new File("C:\\Users\\11291\\SuperMarket\\src\\main\\webapp\\Excel\\text.xlsx");
+        File file = base;
         FileOutputStream outputStream = null;
         try {
             Workbook workbook = getWorkbok(file);

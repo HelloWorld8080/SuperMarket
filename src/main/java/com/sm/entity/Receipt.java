@@ -1,7 +1,9 @@
 package com.sm.entity;
 
 
-public class Receipt {
+import java.io.Serializable;
+
+public class Receipt implements Serializable {
     private Integer receiptId;
     private String receiptAt;
     private Integer employeeId;

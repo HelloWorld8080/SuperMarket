@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Supplier {
+import java.io.Serializable;
+
+public class Supplier implements Serializable {
     private Integer supplierId;
     private String supplierAdd;
     private String supplierName;

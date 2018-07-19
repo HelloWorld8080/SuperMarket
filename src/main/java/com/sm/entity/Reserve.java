@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Reserve {
+import java.io.Serializable;
+
+public class Reserve implements Serializable {
     private Integer reserveId;
     private Integer commodityId;
     private String reserveAt;

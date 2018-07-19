@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sm.dao.EmployeeDao">
+    <cache type="com.sm.redis.RedisCache"></cache>
+
     <select id="queryByname" resultType="Integer" parameterType="String">
         SELECT employee_id FROM sm_employees WHERE employee_name = #{name}
     </select>

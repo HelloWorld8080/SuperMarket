@@ -1,8 +1,9 @@
 package com.sm.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Purchild {
+public class Purchild implements Serializable {
     private String purchildId;
     private String purchaseId;
     private String commodityId;

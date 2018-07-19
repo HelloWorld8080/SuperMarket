@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class Country {
+import java.io.Serializable;
+
+public class Country implements Serializable {
     private String country;
 
     private Double population;

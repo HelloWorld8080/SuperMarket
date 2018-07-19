@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sm.dao.UserDao">
-  <resultMap id="BaseResultMap" type="com.sm.entity.User">
+    <cache type="com.sm.redis.RedisCache"></cache>
+
+    <resultMap id="BaseResultMap" type="com.sm.entity.User">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />

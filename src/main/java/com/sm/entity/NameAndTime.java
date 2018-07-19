@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class NameAndTime {
+import java.io.Serializable;
+
+public class NameAndTime implements Serializable {
     public String getCommodityName() {
         return commodityName;
     }

@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class OutBoundName extends OutBound{
+import java.io.Serializable;
+
+public class OutBoundName extends OutBound implements Serializable {
     private String commodityName;
     private String employeeName;
 

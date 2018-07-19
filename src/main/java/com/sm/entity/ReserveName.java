@@ -1,6 +1,8 @@
 package com.sm.entity;
 
-public class ReserveName extends Reserve{
+import java.io.Serializable;
+
+public class ReserveName extends Reserve implements Serializable {
     private String commodityName;
     private String employeeName;
 
