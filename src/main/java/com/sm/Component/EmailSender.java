@@ -93,6 +93,7 @@ public class EmailSender {
         model.put("from", sendFrom);
         model.put("username", user);
         model.put("email", sendTo[0]);
+        model.put("url", "http://localhost:8080/login/compl");
         String text = VelocityEngineUtils.mergeTemplateIntoString(emailSender.velocityEngine, "template.vm", "UTF-8", model);mimeMessageHelper.setText(text, true);
         System.out.println(text);
         // 发送邮件
