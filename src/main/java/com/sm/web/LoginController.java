@@ -19,7 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.parser.Entity;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 @Controller
@@ -89,6 +94,16 @@ public class LoginController {
 //    验证邮箱的正确行
     public static boolean checkEmail(String email) {
         String regex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        HashMap<String, Integer> zwt = new HashMap();
+        zwt.put("niu", 18);
+        zwt.put("zhang", 17);
+        Iterator it = zwt.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            System.out.println(e.getKey() + " : "+ e.getValue());
+
+        }
         return Pattern.matches(regex, email);
     }
+
 }
