@@ -1,6 +1,9 @@
 package com.sm.Component;
 
 import com.rabbitmq.client.*;
+import com.sm.redis.JedisPool;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Auth justinniu
@@ -15,6 +18,7 @@ public class Producter {
     private static final String EXCHANGE_NAME = "task_exchange";
     private static final String EXCHANGE_NAME2 = "task_exchange2";
 
+    private JedisPool jedisPool = new JedisPool();
     public static void main(String[] argv) throws Exception {
 
             ConnectionFactory factory = new ConnectionFactory();

@@ -110,15 +110,15 @@
         <property name="basePackage" value="com.sm.dao"/>
     </bean>
 
-    <!-- Spring JavaMailSender -->
+     <!--Spring JavaMailSender -->
     <!--<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">-->
     <!--<property name="host" value="smtp.yeah.net"></property>-->
     <!--&lt;!&ndash; 或许你可以用465端口，默认的25不适合 &ndash;&gt;-->
     <!--<property name="port" value="587"/>-->
     <!--<property name="protocol" value="smtp"/>-->
-    <!--<property name="username" value="justinniu@yeah.net"></property>-->
+    <!--<property name="username" value=""></property>-->
     <!--&lt;!&ndash; 这里的是你在QQ邮箱发送开通SMTP短信后，获取的授权码 &ndash;&gt;-->
-    <!--<property name="password" value="n1996z11h2"></property>-->
+    <!--<property name="password" value=""></property>-->
     <!--<property name="defaultEncoding" value="UTF-8"/>-->
     <!--<property name="javaMailProperties">-->
     <!--<props>-->
